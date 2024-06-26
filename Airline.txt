@@ -1,0 +1,130 @@
+package ops;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Airline {
+    private List<Flight> flights;
+    private List<Passenger> passengers;
+
+    public Airline() {
+        this.flights = new ArrayList<>();
+        this.passengers = new ArrayList<>();
+    }
+
+    
+    public void addFlight(Flight flight) {
+        flights.add(flight);
+    }
+
+   
+    public void removeFlight(String flightNumber) {
+        flights.removeIf(flight -> flight.getFlightNumber().equals(flightNumber));
+    }
+
+    
+    public void registerPassenger(Passenger passenger) {
+        passengers.add(passenger);
+    }
+
+    
+    public void unregisterPassenger(String passportNumber) {
+        passengers.removeIf(passenger -> passenger.getPassportNumber().equals(passportNumber));
+    }
+
+  
+    public void bookFlight(String passportNumber, String flightNumber) {
+        Passenger passenger = findPassenger(passportNumber);
+        Flight flight = findFlight(flightNumber);
+        if (passenger != null && flight != null && flight.isAvailable()) {
+            passenger.bookFlight(flight);
+            flight.bookFlight();
+        }
+    }
+
+    
+    public void cancelBooking(String passportNumber, String flightNumber) {
+        Passenger passenger = findPassenger(passportNumber);
+        Flight flight = findFlight(flightNumber);
+        if (passenger != null && flight != null) {
+            passenger.cancelBooking(flight);
+            flight.cancelBooking();
+        }
+    }
+
+  
+    public void listAvailableFlights() {
+        for (Flight flight : flights) {
+            if (flight.isAvailable()) {
+                System.out.println(flight);
+            }
+        }
+    }
+
+    
+    public void listBookedFlights() {
+        for (Flight flight : flights) {
+            if (flight.isAvailable()) {
+                System.out.println(flight);
+            }
+        }
+    }
+
+ 
+    private Passenger findPassenger(String passportNumber) {
+        for (Passenger passenger : passengers) {
+            if (passenger.getPassportNumber().equals(passportNumber)) {
+                return passenger;
+            }
+        }
+        return null;
+    }
+
+   
+    private Flight findFlight(String flightNumber) {
+        for (Flight flight : flights) {
+            if (flight.getFlightNumber().equals(flightNumber)) {
+                return flight;
+            }
+        }
+        return null;
+    }
+    public static void main(String[] args) {
+        
+        Flight flight1 = new Flight("F001", "india", "Mumbai", "10:00", "15:00");
+        Flight flight2 = new Flight("F002", "Paris", "Tokyo", "08:00", "20:00");
+        Flight flight3 = new Flight("F003", "New York", "Singapore", "12:00", "16:00");
+
+        Passenger passenger1 = new Passenger("Shailesh", "AB12345");
+        Passenger passenger2 = new Passenger("Pratik", "CD6789");
+
+        Airline airline = new Airline();
+
+     
+        airline.addFlight(flight1);
+        airline.addFlight(flight2);
+        airline.addFlight(flight3);
+
+      
+        airline.registerPassenger(passenger1);
+        airline.registerPassenger(passenger2);
+
+     
+        System.out.println("Available Flights:");
+        airline.listAvailableFlights();
+
+       
+        airline.bookFlight("AB12345", "F001");
+        airline.bookFlight("CD6789", "F002");
+
+       
+        System.out.println("\nBooked Flights:");
+        airline.listBookedFlights();
+
+       
+        airline.cancelBooking("AB12345", "F001");
+
+       
+        System.out.println("\nUpdated Booked Flights:");
+        airline.listBookedFlights();
+    }
+    }

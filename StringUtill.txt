@@ -1,0 +1,50 @@
+package ops;
+
+public class StringUtill {
+	 private static StringUtill StringUtil;
+
+	public static int countOccurrences(String str, char ch) {
+	        int count = 0;
+	        for (char c : str.toCharArray()) {
+	            if (c == ch) {
+	                count++;
+	            }
+	        }
+	        return count;
+	    }
+
+	    
+	    public static String reverseString(String str) {
+	        return new StringBuilder(str).reverse().toString();
+	    }
+
+	    
+	    public static boolean isPalindrome(String str) {
+	        String reversed = reverseString(str);
+	        return str.equals(reversed);
+	    }
+
+	  
+	    public static String capitalizeWords(String str) {
+	        StringBuilder result = new StringBuilder(str.length());
+	        String[] words = str.split(" ");
+	        for (String word : words) {
+	            if (word.isEmpty()) {
+	                result.append(Character.toUpperCase(word.charAt(0)));
+	                result.append(word.substring(1).toLowerCase());
+	                result.append(" ");
+	            }
+	        }
+	        return result.toString().trim();
+	    }
+	
+	public static void main(String[] args) {
+		 String testString = "Hello, World";
+	        System.out.println("\nString manipulation tests:");
+	        System.out.println("Reverse String: " + StringUtill.reverseString(testString));
+	        System.out.println("Palindrome Check (radar): " + StringUtill.isPalindrome("radar"));
+	        System.out.println("Capitalized Words: " + StringUtill.capitalizeWords("hello world"));
+
+	}
+
+}

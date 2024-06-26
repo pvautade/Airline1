@@ -1,0 +1,91 @@
+package ops;
+
+import java.util.Arrays;
+
+public class WrapperUtil {
+
+    private static WrapperUtil WrapperUtill;
+
+	
+    public static int findMax(Integer[] numbers) {
+        if (numbers == null || numbers.length == 0) {
+            throw new IllegalArgumentException("Array must not be null or empty");
+        }
+
+        int max = numbers[0];
+        for (int i = 1; i < numbers.length; i++) {
+            if (numbers[i] > max) {
+                max = numbers[i];
+            }
+        }
+        return max;
+    }
+
+   
+    public static double calculateAverage(Double[] numbers) {
+        if (numbers == null || numbers.length == 0) {
+            throw new IllegalArgumentException("Array must not be null or empty");
+        }
+
+        double sum = 0;
+        for (double num : numbers) {
+            sum += num;
+        }
+        return sum /numbers.length;
+    }
+
+   
+    public static Boolean[] convertToBooleanArray(String binaryString) {
+        if (binaryString == null || binaryString.isEmpty()) {
+            throw new IllegalArgumentException("Binary string must not be null or empty");
+        }
+
+        Boolean[] booleanArray = new Boolean[binaryString.length()];
+        for (int i = 0; i < binaryString.length(); i++) {
+            char ch = binaryString.charAt(i);
+            if (ch == '0') {
+                booleanArray[i] = false;
+            } else if (ch == '1') {
+                booleanArray[i] = true;
+            } else {
+                throw new IllegalArgumentException("Binary string contains invalid characters");
+            }
+        }
+        return booleanArray;
+    }
+
+  
+    public static String convertToBinaryString(Boolean[] booleanArray) {
+        if (booleanArray == null || booleanArray.length == 0) {
+            throw new IllegalArgumentException("Boolean array must not be null or empty");
+        }
+
+        StringBuilder binaryString = new StringBuilder(booleanArray.length);
+        for (boolean bool : booleanArray) {
+            if (bool) {
+                binaryString.append('1');
+            } else {
+                binaryString.append('0');
+            }
+        }
+        return binaryString.toString();
+    }
+
+	public static void main(String[] args) {
+            	Integer[] numbers = { 3, 6, 2, 8, 1 };
+                System.out.println("\nWrapper utility tests:");
+                System.out.println("Max value in array: " + WrapperUtill.findMax(numbers));
+
+                Double[] doubles = { 2.5, 1.5, 3.5 };
+                System.out.println("Average of doubles: " + WrapperUtill.calculateAverage(doubles));
+
+                String binaryString = "1101";
+                System.out.println("Binary String to Boolean Array: " + Arrays.toString(WrapperUtill.convertToBooleanArray(binaryString)));
+
+                Boolean[] booleanArray = { true, false, true, false };
+                System.out.println("Boolean Array to Binary String: " + WrapperUtill.convertToBinaryString(booleanArray));
+
+	}
+
+}
+
